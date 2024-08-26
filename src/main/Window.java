@@ -1,10 +1,8 @@
 package main;
 
 import java.awt.Canvas;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.Toolkit;
 import java.io.IOException;
 
@@ -29,6 +27,7 @@ public class Window extends Canvas{
 		addMouseListener(Engine.controller);
 		addMouseMotionListener(Engine.controller);
 		addMouseWheelListener(Engine.controller);
+		addKeyListener(Engine.controller);
 	}
 
 	public void initFrame() {
@@ -38,9 +37,6 @@ public class Window extends Canvas{
 		frame.pack();
 		try {
 			Image icone = ImageIO.read(getClass().getResource("/icon.png"));
-			Image cursor = ImageIO.read(getClass().getResource("/cursor.png"));
-			Cursor c = toolkit.createCustomCursor(cursor, new Point(0,0), "cursor");
-			frame.setCursor(c);
 			frame.setIconImage(icone);
 		}catch(IOException e) { e.printStackTrace(); }
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

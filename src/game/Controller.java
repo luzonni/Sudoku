@@ -2,6 +2,8 @@ package game;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -11,7 +13,7 @@ import java.awt.event.MouseWheelListener;
 import main.Engine;
 import main.Sound;
 
-public class Controller implements MouseListener, MouseMotionListener, MouseWheelListener{
+public class Controller implements MouseListener, MouseMotionListener, MouseWheelListener, KeyListener {
 	
 	public static int xMouse;
 	public static int yMouse;
@@ -149,5 +151,30 @@ public class Controller implements MouseListener, MouseMotionListener, MouseWhee
 			if(Sudoku.NumberSelect < 1)
 				Sudoku.NumberSelect = Sudoku.Grid_Size;
 		}
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		try {
+			int[] list = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+			int key = Integer.parseInt(""+e.getKeyChar());
+			for(int i = 0; i < list.length; i++) {
+				if(key == list[i]) {
+					Sudoku.NumberSelect = key;
+				}
+			}
+		}catch (NumberFormatException ex) {}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
