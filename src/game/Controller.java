@@ -20,6 +20,7 @@ public class Controller implements MouseListener, MouseMotionListener, MouseWhee
 	
 	public static boolean Left_Pressed;
 	public static boolean Right_Pressed;
+	public static boolean K;
 	
 	private int xController;
 	private int yController;
@@ -170,6 +171,9 @@ public class Controller implements MouseListener, MouseMotionListener, MouseWhee
 				}
 			}
 		}catch (NumberFormatException ex) {}
+		if(e.getKeyCode() == KeyEvent.VK_K) {
+			Sudoku.solveBoard(Sudoku.Howard);
+		}
 	}
 
 	@Override

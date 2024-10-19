@@ -55,9 +55,8 @@ public class Sudoku {
 		hPainel = (int)(Size*Grid_Size*Scale);
 		Howard = new int[Grid_Size*Grid_Size][Grid_Size*Grid_Size];
 		Placed = new int[Grid_Size*Grid_Size][Grid_Size*Grid_Size];
-		solveBoard(Howard);
+		buildBoard(Howard);
 		clearTable(Howard);
-		
 		for(int y = 0; y < Grid_Size; y++) {
 			for(int x = 0; x < Grid_Size; x++) {
 				System.out.print(Howard[x][y]+" ");
@@ -67,14 +66,14 @@ public class Sudoku {
 		
 	}
 	
-	private boolean solveBoard(int[][] board) {
+	private boolean buildBoard(int[][] board) {
 		for (int row = 0; row < Grid_Size; row++) {
 		  for (int column = 0; column < Grid_Size; column++) {
 		    if (board[row][column] == 0) {
 		      for (int numberToTry = 1; numberToTry <= Grid_Size; numberToTry++) {
 		        if (isValidPlacement(board, numberToTry, row, column)) {
 		          board[row][column] = numberToTry;
-		          if (solveBoard(board)) {
+		          if (buildBoard(board)) {
 		            return true;
 		          }
 		          else {
@@ -98,6 +97,49 @@ public class Sudoku {
 			}
 		}
 	}
+	
+	public static boolean solveBoard(int[][] howard) {
+        for (int row = 0; row < Grid_Size; row++) {
+            for (int col = 0; col < Grid_Size; col++) {
+                if (howard[row][col] == 0) {
+                    for (int num = 1; num <= Grid_Size; num++) {
+                        if (isValid(howard, row, col, num)) {
+                            howard[row][col] = num;
+                            if (solveBoard(howard)) {
+                                return true;
+                            }
+                            howard[row][col] = 0;
+                        }
+                    }
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private static boolean isValid(int[][] howard, int row, int col, int num) {
+        for (int i = 0; i < Grid_Size; i++) {
+            if (howard[row][i] == num) {
+                return false;
+            }
+        }
+        for (int i = 0; i < Grid_Size; i++) {
+            if (howard[i][col] == num) {
+                return false;
+            }
+        }
+        int subGridRowStart = (row / 3) * 3;
+        int subGridColStart = (col / 3) * 3;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (howard[subGridRowStart + i][subGridColStart + j] == num) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 	
 	private boolean isNumberInRow(int[][] board, int number, int row) {
 		for (int i = 0; i < Grid_Size; i++) {
