@@ -171,8 +171,9 @@ public class Controller implements MouseListener, MouseMotionListener, MouseWhee
 				}
 			}
 		}catch (NumberFormatException ex) {}
-		if(e.getKeyCode() == KeyEvent.VK_K) {
-			Sudoku.solveBoard(Sudoku.Howard);
+		if(e.getKeyCode() == KeyEvent.VK_G) {
+			new Solver().solveSudoku(Sudoku.Howard);
+			
 		}
 	}
 
